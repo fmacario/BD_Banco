@@ -36,5 +36,16 @@ namespace BD_Banco
             dataGridView1.DataSource = ptDataset.Tables[0];
             DBInit.close();
         }
+
+        private void dataGridView1_DoubleClick(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count != 0)
+            {
+                DataGridViewRow row = this.dataGridView1.SelectedRows[0];
+                 //cc:
+                EditarCliente f = new EditarCliente(row.Cells[0].Value.ToString());
+                f.Show();
+            }
+        }
     }
 }

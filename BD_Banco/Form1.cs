@@ -44,7 +44,7 @@ namespace BD_Banco
 
         private static string getConnection()
         {
-            return @"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\Filipe\Desktop\UA\3ano\bd\Projeto\BD_Banco\BD_Banco\banco2.mdf; Integrated Security = True; Connect Timeout = 30";
+            return @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Filipe\Documents\Banco.mdf;Integrated Security=True;Connect Timeout=30";
         }
         public static SqlConnection getmyConn()
         {
