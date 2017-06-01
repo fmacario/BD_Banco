@@ -16,6 +16,7 @@ namespace BD_Banco
         public Form1()
         {
             InitializeComponent();
+            WindowState = FormWindowState.Maximized;
         }
 
         private void criarClienteToolStripMenuItem_Click(object sender, EventArgs e)

@@ -16,6 +16,7 @@ namespace BD_Banco
         public MostrarClientes()
         {
             InitializeComponent();
+            WindowState = FormWindowState.Maximized;
         }
 
         private void MostrarClientes_Load(object sender, EventArgs e)
@@ -23,7 +24,7 @@ namespace BD_Banco
             DataSet ptDataset = new DataSet();
             DBInit.init();
 
-            string sql = "Select * FROM Pessoa";
+            string sql = "Select * FROM Cliente left outer join Pessoa on Cliente.nCC = Pessoa.nCC ";
             //SqlCommand com = new SqlCommand(sql, sc);
 
             SqlCommand cmd = new SqlCommand(sql, DBInit.getmyConn());
@@ -38,13 +39,39 @@ namespace BD_Banco
         }
 
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
+        {            
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // editar
+            if (dataGridView1.SelectedRows.Count != 0)
+            {
+                DataGridViewRow row = this.dataGridView1.SelectedRows[0];
+                //cc:
+                EditarCliente f = new EditarCliente(row.Cells[0].Value.ToString());
+                f.Show();
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count != 0)
             {
                 DataGridViewRow row = this.dataGridView1.SelectedRows[0];
-                 //cc:
-                EditarCliente f = new EditarCliente(row.Cells[0].Value.ToString());
+                //cc:
+                HistoricoCliente f = new HistoricoCliente(row.Cells[0].Value.ToString());
                 f.Show();
+            }
+        }
+
+        private void dataGridView1_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count != 0)
+            {
+                button1.Visible = Visible;
+                button2.Visible = Visible;
             }
         }
     }
