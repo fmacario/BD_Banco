@@ -37,6 +37,12 @@ namespace BD_Banco
         {
             
         }
+
+        private void mostrarEmpregadosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MostrarFuncionarios f = new MostrarFuncionarios();
+            f.Show();
+        }
     }
 
     public class DBInit

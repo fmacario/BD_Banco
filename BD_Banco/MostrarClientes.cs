@@ -24,13 +24,13 @@ namespace BD_Banco
             DataSet ptDataset = new DataSet();
             DBInit.init();
 
-            string sql = "Select * FROM Cliente left outer join Pessoa on Cliente.nCC = Pessoa.nCC ";
+            string sql = "MostrarTodosClientes";
             //SqlCommand com = new SqlCommand(sql, sc);
 
             SqlCommand cmd = new SqlCommand(sql, DBInit.getmyConn());
 
 
-            cmd.CommandType = CommandType.Text;
+            cmd.CommandType = CommandType.StoredProcedure;
 
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             da.Fill(ptDataset);
@@ -60,8 +60,8 @@ namespace BD_Banco
             if (dataGridView1.SelectedRows.Count != 0)
             {
                 DataGridViewRow row = this.dataGridView1.SelectedRows[0];
-                //cc:
-                HistoricoCliente f = new HistoricoCliente(row.Cells[0].Value.ToString());
+                //cc+cliente:
+                HistoricoCliente f = new HistoricoCliente(row.Cells[0].Value.ToString(), row.Cells[1].Value.ToString());
                 f.Show();
             }
         }

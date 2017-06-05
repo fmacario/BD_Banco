@@ -91,6 +91,12 @@
     <Compile Include="MostrarClientes.Designer.cs">
       <DependentUpon>MostrarClientes.cs</DependentUpon>
     </Compile>
+    <Compile Include="MostrarFuncionarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MostrarFuncionarios.Designer.cs">
+      <DependentUpon>MostrarFuncionarios.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AdicionarCliente.resx">
@@ -107,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MostrarClientes.resx">
       <DependentUpon>MostrarClientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MostrarFuncionarios.resx">
+      <DependentUpon>MostrarFuncionarios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
