@@ -19,6 +19,48 @@ namespace BD_Banco
             WindowState = FormWindowState.Maximized;
         }
 
+        private void criarClienteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AdicionarCliente f = new AdicionarCliente();
+            f.Show();
+            //this.Hide();
+        }
+
+        private void mostrarClientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MostrarClientes f = new MostrarClientes();
+            f.Show();
+            //this.Hide();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mostrarEmpregadosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MostrarFuncionarios f = new MostrarFuncionarios();
+            f.Show();
+        }
+
+        private void novoEmpréstimoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Emprestimo f = new Emprestimo();
+            f.Show();
+        }
+
+        private void criarOperaçãoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Operacoes f = new Operacoes();
+            f.Show();
+        }
+
+        private void criarContaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CriarConta f = new CriarConta();
+            f.Show();
+        }
         private void MostrarClientes_Load(object sender, EventArgs e)
         {
             DataSet ptDataset = new DataSet();

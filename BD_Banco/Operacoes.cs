@@ -11,12 +11,16 @@ using System.Data.SqlClient;
 
 namespace BD_Banco
 {
-    public partial class AdicionarCliente : Form
+    public partial class Operacoes : Form
     {
-        public AdicionarCliente()
+        public Operacoes()
         {
             InitializeComponent();
-            WindowState = FormWindowState.Maximized;
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void criarClienteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -62,57 +66,58 @@ namespace BD_Banco
             f.Show();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void AdicionarCliente_Load(object sender, EventArgs e)
+        private void Operacoes_Load(object sender, EventArgs e)
         {
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
             DBInit.init();
-            using (SqlCommand cmd = new SqlCommand("InserirCliente", DBInit.getmyConn()))
+            using (SqlCommand cmd = new SqlCommand("FazerDepositoBalcao", DBInit.getmyConn()))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.Add("@nCC", SqlDbType.Int).Value = textBox1.Text;
-                cmd.Parameters.Add("@nome", SqlDbType.VarChar, 40).Value = textBox2.Text;
-                cmd.Parameters.Add("@dataNasc", SqlDbType.Date).Value = dateTimePicker1.Value.ToString("yyyy-MM-dd");
-                cmd.Parameters.Add("@morada", SqlDbType.VarChar, 50).Value = textBox3.Text;
-                cmd.Parameters.Add("@nCont", SqlDbType.Int).Value = textBox4.Text;
-                cmd.Parameters.Add("@nTelefone", SqlDbType.Int).Value = textBox5.Text;
+                cmd.Parameters.Add("@quantia", SqlDbType.Decimal).Value = textBox1.Text;
+                cmd.Parameters.Add("@nCliente", SqlDbType.Int).Value = textBox2.Text;
+                cmd.Parameters.Add("@nBalcao", SqlDbType.Int).Value = textBox3.Text;
+                cmd.Parameters.Add("@nConta", SqlDbType.BigInt).Value = textBox4.Text;
 
-                try { 
+                try
+                {
                     cmd.ExecuteNonQuery();
-                    MessageBox.Show("Cliente adicionado com sucesso", "Sucesso!");
+                    MessageBox.Show("Depósito realizado com sucesso", "Sucesso!");
                 }
-                catch(Exception f) {
+                catch (Exception f)
+                {
                     MessageBox.Show(f.ToString());
                 }
-                
+
             }
 
             DBInit.close();
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
+            DBInit.init();
+            using (SqlCommand cmd = new SqlCommand("FazerTransferencia", DBInit.getmyConn()))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
 
+                cmd.Parameters.Add("@quantia", SqlDbType.Decimal).Value = textBox8.Text;
+                cmd.Parameters.Add("@nCartao", SqlDbType.BigInt).Value = textBox7.Text;
+                cmd.Parameters.Add("@nContaDestino", SqlDbType.BigInt).Value = textBox6.Text;
+                cmd.Parameters.Add("@nContaDono", SqlDbType.BigInt).Value = textBox5.Text;
+
+                
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Transferência realizada com sucesso", "Sucesso!");
+                
+
+            }
+
+            DBInit.close();
         }
     }
 }

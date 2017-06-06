@@ -11,12 +11,11 @@ using System.Data.SqlClient;
 
 namespace BD_Banco
 {
-    public partial class Form1 : Form
+    public partial class CriarConta : Form
     {
-        public Form1()
+        public CriarConta()
         {
             InitializeComponent();
-            WindowState = FormWindowState.Maximized;
         }
 
         private void criarClienteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -35,7 +34,7 @@ namespace BD_Banco
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void mostrarEmpregadosToolStripMenuItem_Click(object sender, EventArgs e)
@@ -61,47 +60,61 @@ namespace BD_Banco
             CriarConta f = new CriarConta();
             f.Show();
         }
-    }
+        private void CriarConta_Load(object sender, EventArgs e)
+        {
 
-    public class DBInit
-    {
-        private static SqlConnection connection;
-
-        private static string getConnection()
-        {
-            return @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Filipe\Documents\Banco.mdf;Integrated Security=True;Connect Timeout=30";
-        }
-        public static SqlConnection getmyConn()
-        {
-            return connection;
-        }
-        public static void close()
-        {
-            connection.Close();
         }
 
-        public static bool init()
+        private void button1_Click(object sender, EventArgs e)
         {
-            try { connection = new SqlConnection(getConnection()); }
-            catch (Exception ex)
+            DBInit.init();
+            using (SqlCommand cmd = new SqlCommand("CriarConta", DBInit.getmyConn()))
             {
-                MessageBox.Show("Erro de ligação à base de dados");
-                Console.Out.WriteLine(ex);
-                return false;
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add("@nCC", SqlDbType.Int).Value = textBox1.Text;
+                if (comboBox1.Text == "Prazo")
+                    cmd.Parameters.Add("@juros", SqlDbType.Decimal).Value = textBox2.Text;
+                else if (comboBox1.Text == "Ordem")
+                    cmd.Parameters.Add("@juros", SqlDbType.Decimal).Value = 0.0;
+
+                if (checkBox1.Checked)
+                    cmd.Parameters.Add("@admin", SqlDbType.Bit).Value = 1;
+                else
+                    cmd.Parameters.Add("@admin", SqlDbType.Bit).Value = 0;
+
+
+                cmd.Parameters.Add("@saldo", SqlDbType.Decimal).Value = textBox3.Text;
+
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Conta criada com sucesso", "Sucesso!");
+                }
+                catch (Exception f)
+                {
+                    MessageBox.Show(f.ToString());
+                }
+
+
             }
 
-            try
-            {
-                connection.Open();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro de ligação à base de dados");
-                Console.Out.WriteLine(ex);
-                return false;
-            }
+            DBInit.close();
+        }
 
-            return true;
+        private void comboBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.Text == "Prazo")
+            {
+                label3.Show();
+                textBox2.Show();
+            }
+            else
+            {
+                label3.Hide();
+                textBox2.Hide();
+            }
         }
     }
 }

@@ -124,6 +124,7 @@
             this.criarContaToolStripMenuItem.Name = "criarContaToolStripMenuItem";
             this.criarContaToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.criarContaToolStripMenuItem.Text = "Criar Conta";
+            this.criarContaToolStripMenuItem.Click += new System.EventHandler(this.criarContaToolStripMenuItem_Click);
             // 
             // verContasToolStripMenuItem
             // 
@@ -166,6 +167,7 @@
             this.criarOperaçãoToolStripMenuItem.Name = "criarOperaçãoToolStripMenuItem";
             this.criarOperaçãoToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.criarOperaçãoToolStripMenuItem.Text = "Criar Operação";
+            this.criarOperaçãoToolStripMenuItem.Click += new System.EventHandler(this.criarOperaçãoToolStripMenuItem_Click);
             // 
             // mostrarOperaçõesToolStripMenuItem
             // 
@@ -187,6 +189,7 @@
             this.novoEmpréstimoToolStripMenuItem.Name = "novoEmpréstimoToolStripMenuItem";
             this.novoEmpréstimoToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.novoEmpréstimoToolStripMenuItem.Text = "Novo Empréstimo";
+            this.novoEmpréstimoToolStripMenuItem.Click += new System.EventHandler(this.novoEmpréstimoToolStripMenuItem_Click);
             // 
             // mostrarEmpréstimosToolStripMenuItem
             // 

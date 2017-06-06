@@ -11,12 +11,11 @@ using System.Data.SqlClient;
 
 namespace BD_Banco
 {
-    public partial class Form1 : Form
+    public partial class Emprestimo : Form
     {
-        public Form1()
+        public Emprestimo()
         {
             InitializeComponent();
-            WindowState = FormWindowState.Maximized;
         }
 
         private void criarClienteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -35,7 +34,7 @@ namespace BD_Banco
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void mostrarEmpregadosToolStripMenuItem_Click(object sender, EventArgs e)
@@ -61,47 +60,32 @@ namespace BD_Banco
             CriarConta f = new CriarConta();
             f.Show();
         }
-    }
-
-    public class DBInit
-    {
-        private static SqlConnection connection;
-
-        private static string getConnection()
+        private void button1_Click(object sender, EventArgs e)
         {
-            return @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Filipe\Documents\Banco.mdf;Integrated Security=True;Connect Timeout=30";
-        }
-        public static SqlConnection getmyConn()
-        {
-            return connection;
-        }
-        public static void close()
-        {
-            connection.Close();
-        }
-
-        public static bool init()
-        {
-            try { connection = new SqlConnection(getConnection()); }
-            catch (Exception ex)
+            DBInit.init();
+            using (SqlCommand cmd = new SqlCommand("FazerEmprestimo", DBInit.getmyConn()))
             {
-                MessageBox.Show("Erro de ligação à base de dados");
-                Console.Out.WriteLine(ex);
-                return false;
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add("@quantia", SqlDbType.Decimal).Value = textBox1.Text;
+                cmd.Parameters.Add("@juro", SqlDbType.Decimal).Value = textBox2.Text;
+                cmd.Parameters.Add("@prazo", SqlDbType.Date).Value = dateTimePicker1.Value.ToString("yyyy-MM-dd");
+                cmd.Parameters.Add("@nCC", SqlDbType.Int).Value = textBox3.Text;
+                cmd.Parameters.Add("@nConta", SqlDbType.BigInt).Value = textBox4.Text;
+                cmd.Parameters.Add("@nFuncionario", SqlDbType.Int).Value = textBox5.Text;
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Empréstimo executado com sucesso", "Sucesso!");
+                }
+                catch (Exception f)
+                {
+                    MessageBox.Show(f.ToString());
+                }         
             }
 
-            try
-            {
-                connection.Open();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro de ligação à base de dados");
-                Console.Out.WriteLine(ex);
-                return false;
-            }
-
-            return true;
+            DBInit.close();
         }
     }
 }
